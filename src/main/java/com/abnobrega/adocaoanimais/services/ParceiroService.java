@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.abnobrega.adocaoanimais.domain.Parceiro;
 import com.abnobrega.adocaoanimais.repositories.ParceiroRepository;
+import com.abnobrega.adocaoanimais.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ParceiroService {
@@ -20,7 +21,7 @@ public class ParceiroService {
     //*********************************		
 	public Parceiro findById(Integer id) {
 		Optional<Parceiro> obj = parceiroRepository.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto Não Encontrado! Id: " + id));		
 	}
 
 	public List<Parceiro> listarParceiros() {

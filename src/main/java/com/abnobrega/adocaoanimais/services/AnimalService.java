@@ -51,9 +51,7 @@ public class AnimalService {
     //*****************************		
 	public Animal incluirAnimal(AnimalDTO objDTO) {
 		return animalRepository.save(gerarNovoAnimal(objDTO));
-		
 	}
-	
 	
     //*********************************
     //******* A T U A L I Z A R *******

@@ -56,7 +56,6 @@ public class AnimalResource {
 		List<Animal> lista = animalService.listarAnimais();
 		List<AnimalDTO> listaDTO = lista.stream().map(obj -> new AnimalDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listaDTO);
-		
 	}	
 	
     //*****************************

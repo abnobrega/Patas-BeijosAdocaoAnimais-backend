@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.abnobrega.adocaoanimais.domain.Categoria;
 import com.abnobrega.adocaoanimais.repositories.CategoriaRepository;
+import com.abnobrega.adocaoanimais.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -20,7 +21,7 @@ public class CategoriaService {
     //*********************************		
 	public Categoria findById(Integer id) {
 		Optional<Categoria> obj = categoriaRepository.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto Não Encontrado! Id: " + id));		
 	}
 	
 	public List<Categoria> listarCategorias() {
