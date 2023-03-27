@@ -81,6 +81,19 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<!-- Dependência para fazer a documentação da API por meio da ferramenta SWAGGER -->
+	    <dependency>
+	        <groupId>io.springfox</groupId>
+	        <artifactId>springfox-swagger2</artifactId>
+	        <version>2.9.2</version>
+	    </dependency>		
+
+	    <!-- Dependência que traz uma UI para visualizamos a documentação da API no SWAGGER -->
+	    <dependency>
+	        <groupId>io.springfox</groupId>
+	        <artifactId>springfox-swagger-ui</artifactId>
+	        <version>2.9.2</version>
+	    </dependency>	    
 		
 	</dependencies>
 

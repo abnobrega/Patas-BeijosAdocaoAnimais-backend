@@ -38,6 +38,23 @@ public class AnimalService {
 		return animalRepository.findAll();
 	}
 	
+    //*****************************
+    //******* E X C L U I R *******
+    //*****************************
+	public void excluirAnimal(Integer id) {
+		Animal obj = findById(id);
+		animalRepository.deleteById(obj.getId());
+	}
+	
+    //*****************************
+    //******* I N C L U I R *******
+    //*****************************		
+	public Animal incluirAnimal(AnimalDTO objDTO) {
+		return animalRepository.save(gerarNovoAnimal(objDTO));
+		
+	}
+	
+	
     //*********************************
     //******* A T U A L I Z A R *******
     //*********************************
