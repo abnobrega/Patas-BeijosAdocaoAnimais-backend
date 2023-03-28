@@ -26,8 +26,13 @@ import com.abnobrega.adocaoanimais.dtos.AnimalDTO;
 //import com.abnobrega.adocaoanimais.domain.Animal;
 import com.abnobrega.adocaoanimais.services.AnimalService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 @RestController 							//Controlador Rest
 @RequestMapping(value = "/api/animais") 	//Para dicionar o endpoint inicial para os serviços(endpoints) dos animai
+@Api
 public class AnimalResource {
 	// Exemplo de Requisição Http para acessar um recurso de animal: localhost:8080/api/animais/1
 	
@@ -45,13 +50,17 @@ public class AnimalResource {
     //*********************************
     //******* C O N S U L T A R *******
     //*********************************	
-	@GetMapping(value = "/{id}")	// Recebo um um pathvariable id	
-	public ResponseEntity<Animal> findById(@PathVariable Integer id) {
+	// Endpoint para consultar um Animal por Id		
+	@GetMapping(value = "/{id}")	
+	@ApiOperation("Consultar Animal por Id")
+	public ResponseEntity<Animal> findById(@PathVariable @ApiParam("Id do animal") Integer id) {
 		Animal obj = animalService.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	// Endpoint para listar todos os animais	
 	@GetMapping
+	@ApiOperation("Listar Animais")	
 	public ResponseEntity<List<AnimalDTO>> findAll() {
 		List<Animal> lista = animalService.listarAnimais();
 		List<AnimalDTO> listaDTO = lista.stream().map(obj -> new AnimalDTO(obj)).collect(Collectors.toList());
@@ -63,7 +72,8 @@ public class AnimalResource {
     //*****************************
 	// Endpoint para excluir um Animal	
 	@DeleteMapping(value = "/{id}") // Endpoint que recebe o id na URL
-	public ResponseEntity<AnimalDTO> excluirCliente(@PathVariable Integer id) {
+	@ApiOperation("Excluir Animal")	
+	public ResponseEntity<AnimalDTO> excluirCliente(@PathVariable @ApiParam("Id do animal") Integer id) {
 		animalService.excluirAnimal(id);
 		return ResponseEntity.noContent().build();
 	}	
@@ -73,6 +83,7 @@ public class AnimalResource {
     //*****************************	
 	// Endpoint para incluir um novo Animal
 	@PostMapping
+	@ApiOperation("Incluir Animal")	
 	public ResponseEntity<AnimalDTO> incluirAnimal(@RequestBody AnimalDTO objDTO) {
 		Animal newObj = animalService.incluirAnimal(objDTO);
 		// Quando criamos um novo objeto no BD, é uma boa prátoca retornar a URI desse novo objeto.
@@ -85,9 +96,11 @@ public class AnimalResource {
 	
     //*********************************
     //******* A T U A L I Z A R *******
-    //*********************************		
-	@PutMapping(value = "/{id}")	// Recebo um um PathVariable id
-	public ResponseEntity<AnimalDTO> atualizarAnimal(@PathVariable Integer id, 
+    //*********************************	
+	// Endpoint para atualizar um Animal		
+	@PutMapping(value = "/{id}")	
+	@ApiOperation("Atualizar Animal")	
+	public ResponseEntity<AnimalDTO> atualizarAnimal(@PathVariable @ApiParam("Id do animal") Integer id, 
 													 @RequestBody AnimalDTO objDTO) {
 		Animal newObj = animalService.atualizarAnimal(id, objDTO);
 		

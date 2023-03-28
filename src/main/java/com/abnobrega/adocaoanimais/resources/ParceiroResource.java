@@ -14,6 +14,9 @@ import com.abnobrega.adocaoanimais.domain.Parceiro;
 import com.abnobrega.adocaoanimais.dtos.ParceiroDTO;
 import com.abnobrega.adocaoanimais.services.ParceiroService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 @RestController 							//Controlador Rest
 @RequestMapping(value = "/api/parceiros") 	//Para dicionar o endpoint inicial para os serviços(endpoints) dos parceiros
 public class ParceiroResource {
@@ -33,13 +36,17 @@ public class ParceiroResource {
     //*********************************
     //******* C O N S U L T A R *******
     //*********************************	
+	// Endpoint para consultar um Parceiro por Id			
 	@GetMapping(value = "/{id}")	
-	public ResponseEntity<ParceiroDTO> findById(@PathVariable Integer id) {
+	@ApiOperation("Consultar Parceiro por Id")	
+	public ResponseEntity<ParceiroDTO> findById(@PathVariable @ApiParam("Id do parceiro") Integer id) {
 		Parceiro obj = parceiroService.findById(id);
 		return ResponseEntity.ok().body(new ParceiroDTO(obj));
 	}
 	
-	@GetMapping		
+	// Endpoint para listar todos os parceiros	
+	@GetMapping
+	@ApiOperation("Listar Parceiros")		
 	public ResponseEntity<List<ParceiroDTO>> findAll(){
 		List<Parceiro> lista = parceiroService.listarParceiros();		
 		List<ParceiroDTO> listaDTO = lista.stream().map(obj -> new ParceiroDTO(obj)).collect(Collectors.toList());

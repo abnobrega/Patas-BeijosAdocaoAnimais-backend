@@ -14,6 +14,9 @@ import com.abnobrega.adocaoanimais.domain.Categoria;
 import com.abnobrega.adocaoanimais.dtos.CategoriaDTO;
 import com.abnobrega.adocaoanimais.services.CategoriaService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 @RestController 							//Controlador Rest
 @RequestMapping(value = "/api/categorias") 	//Para dicionar o endpoint inicial para os serviços(endpoints) das categorias
 public class CategoriaResource {
@@ -34,13 +37,17 @@ public class CategoriaResource {
     //*********************************
     //******* C O N S U L T A R *******
     //*********************************	
+	// Endpoint para consultar uma Categoria por Id		
 	@GetMapping(value = "/{id}")	
-	public ResponseEntity<CategoriaDTO> findById(@PathVariable Integer id) {
+	@ApiOperation("Consultar Categoria por Id")	
+	public ResponseEntity<CategoriaDTO> findById(@PathVariable @ApiParam("Id da categoria") Integer id) {
 		Categoria obj = categoriaService.findById(id);
 		return ResponseEntity.ok().body(new CategoriaDTO(obj));
 	}
 	
+	// Endpoint para listar todas as categorias		
 	@GetMapping		
+	@ApiOperation("Listar Categorias")		
 	public ResponseEntity<List<CategoriaDTO>> findAll(){
 		List<Categoria> lista = categoriaService.listarCategorias();
 		List<CategoriaDTO> listaDTO = lista.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
